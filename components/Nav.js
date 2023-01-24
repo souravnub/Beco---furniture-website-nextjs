@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useNav } from "../utils/Nav";
 
 const navLinks = [
     {
@@ -21,6 +22,8 @@ const navLinks = [
 ];
 
 const Nav = () => {
+    const { isNavThemeDark } = useNav();
+    console.log(isNavThemeDark);
     return (
         <nav className="container flex gap-4 items-center justify-between py-3">
             <Link href="/" className="uppercase font-bold">
@@ -30,7 +33,7 @@ const Nav = () => {
             <ul role="list" className="flex gap-5">
                 {navLinks.map(({ text, href }) => {
                     return (
-                        <li>
+                        <li key={text}>
                             <Link
                                 href={href}
                                 className="font-medium capitalize text-sm">
