@@ -12,7 +12,7 @@ export const useNav = () => {
 };
 
 function navStates() {
-    const [isNavThemeDark, setIsNavThemeDark] = useState(false);
+    const [isNavThemeDark, setIsNavThemeDark] = useState(true);
 
     return {
         isNavThemeDark,

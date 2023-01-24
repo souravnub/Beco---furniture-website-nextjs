@@ -37,10 +37,10 @@ const RotatingText = ({ children, text, spacing, textSpacing = 10 }) => {
             <div className="aspect-square rounded-full">{children}</div>
             <motion.p
                 animate={{
-                    rotate: "180deg",
+                    rotate: 360,
                     transition: {
                         repeat: Infinity,
-                        duration: 5,
+                        duration: 9,
                         ease: "linear",
                     },
                 }}

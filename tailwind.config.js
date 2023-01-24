@@ -11,6 +11,7 @@ module.exports = {
             mono: "Roboto Mono, monospace",
         },
         container: {
+            center: true,
             padding: {
                 DEFAULT: "1rem",
                 sm: "2rem",

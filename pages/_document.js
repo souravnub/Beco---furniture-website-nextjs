@@ -4,9 +4,9 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preload" href="https://fonts.googleapis.com" />
                 <link
-                    rel="preconnect"
+                    rel="preload"
                     href="https://fonts.gstatic.com"
                     crossOrigin="true"
                 />
