@@ -5,21 +5,33 @@ module.exports = {
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        fontFamily: {
-            sans: "Montserrat, sans-serif",
-            cursive: "Unbounded, cursive ",
-            mono: "Roboto Mono, monospace",
-        },
-        container: {
-            center: true,
-            padding: {
-                DEFAULT: "1rem",
-                sm: "2rem",
-                lg: "4rem",
-                xl: "5rem",
+        extend: {
+            container: {
+                center: true,
+                padding: {
+                    DEFAULT: "1rem",
+                    sm: "2rem",
+                    lg: "4rem",
+                    xl: "5rem",
+                },
+            },
+            fontFamily: {
+                sans: "Syne, sans-serif",
+            },
+            backgroundImage: {
+                texture: 'url("/bg-img.png")',
+            },
+            backgroundColor: {
+                dark: {
+                    DEFAULT: "#1F2122",
+                },
+            },
+            borderColor: {
+                dark: {
+                    DEFAULT: "#5b5f62",
+                },
             },
         },
-        extend: {},
     },
     plugins: [],
 };

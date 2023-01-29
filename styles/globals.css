@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+.nav-transparent {
+    @apply text-white;
+}
+
+.nav-dark {
+    @apply bg-dark text-white;
+}
+
+.nav-white {
+    @apply bg-white;
+}
+
+.nav-orange {
+    @apply bg-orange-400;
+}
+
+.menu-btn {
+    transition: background-color ease 400ms;
+}
+.menu-btn.light {
+    @apply bg-white;
+}
+.menu-btn.light > div {
+    @apply bg-dark;
+}
+
+.menu-btn.dark {
+    @apply bg-dark;
+}
+.menu-btn.dark > div {
+    @apply bg-white;
+}
