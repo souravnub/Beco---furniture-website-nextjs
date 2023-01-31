@@ -44,7 +44,7 @@ const MobileMenu = ({ isOpen, navRef, links, ...props }) => {
             {...props}
             ref={menuRef}
             style={{ paddingTop: navHeight + "px" }}
-            className={`bg-dark text-white z-10 fixed inset-0`}>
+            className={`opacity-0 bg-dark text-white z-10 fixed inset-0 md:hidden`}>
             {links.map(({ href, text }) => {
                 return (
                     <div className="first:mt-1 relative isolate p-5 border-t border-dark group after:content-[''] after:absolute after:inset-0 after:scale-y-0 after:transition-transform after:-z-10 after:bg-white hover:after:scale-y-100 after:origin-top after:duration-300 focus-within:after:scale-y-100">
@@ -62,7 +62,7 @@ const MobileMenu = ({ isOpen, navRef, links, ...props }) => {
             <Link
                 href={"/contact"}
                 className="group mt-5 ml-5 p-5 grid place-content-center grid-flow-col items-center gap-3 w-fit text-black bg-yellow-400 aspect-square rounded-full">
-                <div className="relative overflow-hidden w-4 aspect-square">
+                <div className="relative w-4 aspect-square" aria-hidden="true">
                     <HiOutlineArrowRight className="absolute group-hover:translate-x-full group-focus:translate-x-full opacity-100 transition group-hover:opacity-0 group-focus:opacity-0 duration-700" />
                     <HiOutlineArrowRight className="absolute opacity-0 right-full group-hover:translate-x-full group-focus:translate-x-full transition group-hover:opacity-100 group-focus:opacity-100 duration-700" />
                 </div>

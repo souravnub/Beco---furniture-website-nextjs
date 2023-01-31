@@ -6,6 +6,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 import { FaCircleNotch } from "react-icons/fa";
 import myConfig from "../tailwind.config";
 import MobileMenu from "./MobileMenu";
+import { HiOutlineArrowRight } from "react-icons/hi";
 
 const navLinks = [
     {
@@ -171,6 +172,30 @@ const Nav = () => {
                     <span className="font-semibold text-xl">Beco</span>
                 </Link>
 
+                <ul className="hidden md:flex md:items-cneter md:gap-8">
+                    {navLinks.map(({ href, text }) => {
+                        return (
+                            <Link href={href} key={href} className="">
+                                {text}
+                            </Link>
+                        );
+                    })}
+                </ul>
+
+                <Link
+                    href="/contact"
+                    className="group hidden md:flex md:gap-2 md:items-center">
+                    <div className="" aria-hidden="true">
+                        <div
+                            className="relative w-4 aspect-square bg-white p-4 rounded-full  overflow-hidden flex items-center justify-center"
+                            aria-hidden="true">
+                            <HiOutlineArrowRight className="text-black absolute -translate-x-full group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition duration-700" />
+                            <HiOutlineArrowRight className="text-black absolute  group-hover:translate-x-full transition opacity-100 group-hover:opacity-0 duration-700" />
+                        </div>
+                    </div>
+                    Get in touch
+                </Link>
+
                 <button
                     disabled={isMenuBtnDisabled}
                     aria-controls="mobile-navigation"
@@ -180,13 +205,13 @@ const Nav = () => {
                         setIsMobileMenuOpen((prev) => !prev);
                         handleNavAnimation();
                     }}
-                    className={`${menuBtnTheme} relative menu-btn grid place-items-center rounded-full w-10 aspect-square`}
+                    className={`${menuBtnTheme} relative menu-btn grid place-items-center rounded-full w-10 aspect-square md:hidden`}
                     ref={menuBtnRef}>
                     <span className="sr-only">
                         {isMobileMenuOpen ? "hide menu" : "show menu"}
                     </span>
-                    <div className="absolute w-4 h-[1.5px] top-[45%] origin-center pointer-events-none"></div>
-                    <div className="absolute w-4 h-[1.5px] top-[55%] origin-center pointer-events-none"></div>
+                    <div className="absolute rounded-full w-4 h-[1.5px] top-[45%] origin-center pointer-events-none"></div>
+                    <div className="absolute rounded-full w-4 h-[1.5px] top-[55%] origin-center pointer-events-none"></div>
                 </button>
             </div>
             <MobileMenu

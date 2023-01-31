@@ -2,39 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --bg-dark: rgb(31, 33, 34);
+}
+
 ::-webkit-scrollbar {
     width: 0px;
 }
 
-.nav-transparent {
-    @apply text-white;
+nav {
+    --text-clr: white;
+    --bg-clr: var(--bg-dark);
 }
-
-.nav-dark {
-    @apply bg-dark text-white;
-}
-
-.nav-white {
-    @apply bg-white;
-}
-
-.nav-orange {
-    @apply bg-orange-400;
+nav > div:nth-of-type(1) {
+    color: var(--text-clr);
+    background-color: var(--bg-clr);
 }
 
 .menu-btn {
+    --btn-bg: var(--bg-dark);
+    --btn-bg-inverted: white;
+    --btn-text-clr: white;
+
+    background-color: var(--btn-bg);
     transition: background-color ease 400ms;
 }
-.menu-btn.light {
-    @apply bg-white;
-}
-.menu-btn.light > div {
-    @apply bg-dark;
+.menu-btn > div {
+    background-color: var(--btn-bg-inverted);
 }
 
-.menu-btn.dark {
-    @apply bg-dark;
+/* Nav theme types */
+
+.nav-transparent {
+    --bg-clr: var(--bg-dark);
+    --text-clr: white;
 }
-.menu-btn.dark > div {
-    @apply bg-white;
+
+.nav-dark {
+    --text-clr: white;
+    --bg-clr: var(--bg-dark);
+}
+
+.nav-white {
+    --bg-clr: white;
+    --text-clr: var(--bg-dark);
+}
+
+.nav-orange {
+    --bg-clr: orange;
+    --text-clr: var(--bg-dark);
+}
+
+/* nav menu button Theme Types */
+
+.menu-btn.light {
+    --btn-bg: white;
+    --btn-bg-inverted: var(--bg-dark);
+}
+.menu-btn.dark {
+    --btn-bg: var(--bg-dark);
+    --btn-bg-inverted: white;
 }
