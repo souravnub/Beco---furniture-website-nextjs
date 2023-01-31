@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useNav } from "../contexts/Nav";
 import gsap from "gsap";
@@ -34,6 +34,8 @@ const Nav = () => {
     const navAniRef = useRef();
 
     const tailwindConfig = resolveConfig(myConfig);
+
+    const [isMenuBtnDisabled, setIsMenuBtnDisabled] = useState(false);
 
     useEffect(() => {
         if (isMobileMenuOpen) {
@@ -138,18 +140,24 @@ const Nav = () => {
 
     function handleNavAnimation() {
         if (isMobileMenuOpen) {
+            setIsMenuBtnDisabled(true);
             navAniRef.current
                 .reverse()
                 .eventCallback("onReverseComplete", () => {
+                    setIsMenuBtnDisabled(false);
                     navAniRef.current.revert();
-                })
-                .eventCallback("onComplete", () => {
-                    navAniRef.current?.revert();
                 });
         } else {
             navAniRef.current = animateNav({
                 toBg: tailwindConfig.theme.backgroundColor.dark.DEFAULT,
-            }).play();
+            })
+                .play()
+                .eventCallback("onStart", () => {
+                    setIsMenuBtnDisabled(true);
+                })
+                .eventCallback("onComplete", () => {
+                    setIsMenuBtnDisabled(false);
+                });
         }
     }
 
@@ -164,7 +172,9 @@ const Nav = () => {
                 </Link>
 
                 <button
+                    disabled={isMenuBtnDisabled}
                     aria-controls="mobile-navigation"
+                    aria-disabled={isMenuBtnDisabled ? "true" : "false"}
                     aria-expanded={isMobileMenuOpen ? "true" : "false"}
                     onClick={() => {
                         setIsMobileMenuOpen((prev) => !prev);
@@ -175,8 +185,8 @@ const Nav = () => {
                     <span className="sr-only">
                         {isMobileMenuOpen ? "hide menu" : "show menu"}
                     </span>
-                    <div className="absolute w-4 h-[1.5px] top-[45%] origin-center"></div>
-                    <div className="absolute w-4 h-[1.5px] top-[55%] origin-center"></div>
+                    <div className="absolute w-4 h-[1.5px] top-[45%] origin-center pointer-events-none"></div>
+                    <div className="absolute w-4 h-[1.5px] top-[55%] origin-center pointer-events-none"></div>
                 </button>
             </div>
             <MobileMenu
