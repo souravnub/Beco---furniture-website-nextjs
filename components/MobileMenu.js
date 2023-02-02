@@ -44,14 +44,15 @@ const MobileMenu = ({ isOpen, navRef, links, ...props }) => {
             {...props}
             ref={menuRef}
             style={{ paddingTop: navHeight + "px" }}
-            className={`opacity-0 bg-dark text-white z-10 fixed inset-0 md:hidden`}>
+            className={`opacity-0 bg-dark bg-texture text-white z-10 fixed inset-0 md:hidden`}>
             {links.map(({ href, text }) => {
                 return (
-                    <div className="first:mt-1 relative isolate p-5 border-t border-dark group after:content-[''] after:absolute after:inset-0 after:scale-y-0 after:transition-transform after:-z-10 after:bg-white hover:after:scale-y-100 after:origin-top after:duration-300 focus-within:after:scale-y-100">
+                    <div
+                        key={href}
+                        className="first:mt-1 relative isolate p-5 border-t border-dark group after:content-[''] after:absolute after:inset-0 after:scale-y-0 after:transition-transform after:-z-10 after:bg-white hover:after:scale-y-100 after:origin-top after:duration-300 focus-within:after:scale-y-100">
                         <div className="overflow-hidden">
                             <Link
                                 href={href}
-                                key={href}
                                 className=" block font-bold text-3xl mix-blend-difference">
                                 {text}
                             </Link>

@@ -19,7 +19,7 @@ function navStates() {
     const [navTypeBeforeMenuOpen, setNavTypeBeforeMenuOpen] =
         useState(undefined);
     const [menuBtnTheme, setMenuBtnTheme] = useState("light");
-    const [initialNavHeight, setInitialNavHeight] = useState(undefined);
+    const [initialNavHeight, setInitialNavHeight] = useState(0);
 
     return {
         navType,
@@ -28,11 +28,11 @@ function navStates() {
         setIsMobileMenuOpen,
         navHeight,
         setNavHeight,
-        initialNavHeight,
-        setInitialNavHeight,
         navTypeBeforeMenuOpen,
         setNavTypeBeforeMenuOpen,
         menuBtnTheme,
         setMenuBtnTheme,
+        initialNavHeight,
+        setInitialNavHeight,
     };
 }

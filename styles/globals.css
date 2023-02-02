@@ -10,6 +10,10 @@
     width: 0px;
 }
 
+* {
+    @apply lg:cursor-none;
+}
+
 nav {
     --text-clr: white;
     --bg-clr: var(--bg-dark);
@@ -19,7 +23,8 @@ nav > div:nth-of-type(1) {
     background-color: var(--bg-clr);
 }
 
-.menu-btn {
+.menu-btn,
+.menu-contact-btn {
     --btn-bg: var(--bg-dark);
     --btn-bg-inverted: white;
     --btn-text-clr: white;
@@ -29,6 +34,11 @@ nav > div:nth-of-type(1) {
 }
 .menu-btn > div {
     background-color: var(--btn-bg-inverted);
+}
+
+.menu-contact-btn > svg {
+    color: var(--btn-bg-inverted);
+    fill: var(--btn-bg-inverted);
 }
 
 /* Nav theme types */
@@ -55,11 +65,13 @@ nav > div:nth-of-type(1) {
 
 /* nav menu button Theme Types */
 
-.menu-btn.light {
+.menu-btn.light,
+.menu-contact-btn.light {
     --btn-bg: white;
     --btn-bg-inverted: var(--bg-dark);
 }
-.menu-btn.dark {
+.menu-btn.dark,
+.menu-contact-btn.dark {
     --btn-bg: var(--bg-dark);
     --btn-bg-inverted: white;
 }

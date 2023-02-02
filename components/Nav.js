@@ -28,6 +28,7 @@ const Nav = () => {
         setIsMobileMenuOpen,
         menuBtnTheme,
         setMenuBtnTheme,
+        setInitialNavHeight,
     } = useNav();
     const navRef = useRef();
     const navPaddingAni = useRef();
@@ -48,8 +49,9 @@ const Nav = () => {
 
     useEffect(() => {
         setNavHeight(navRef.current.offsetHeight);
+        setInitialNavHeight(navRef.current.offsetHeight);
         // newNavPadding should be small than what is in the className of nav
-        const newNavPadding = tailwindConfig.theme.spacing[4];
+        const newNavPadding = tailwindConfig.theme.spacing[3];
 
         navPaddingAni.current = gsap.to(navRef.current, {
             paddingTop: newNavPadding,
@@ -166,16 +168,16 @@ const Nav = () => {
         <nav>
             <div
                 ref={navRef}
-                className="transition fixed z-20 nav-transparent bg-texture flex justify-between items-center p-6 top-0 w-full">
+                className="font-semibold text-sm transition fixed z-20 nav-transparent bg-texture flex justify-between items-center p-6 top-0 w-full">
                 <Link href="/" className="flex gap-1 items-center">
                     <FaCircleNotch className="fill-yellow-400" />
                     <span className="font-semibold text-xl">Beco</span>
                 </Link>
 
-                <ul className="hidden md:flex md:items-cneter md:gap-8">
+                <ul className="hidden md:flex md:items-cneter md:gap-10">
                     {navLinks.map(({ href, text }) => {
                         return (
-                            <Link href={href} key={href} className="">
+                            <Link href={href} key={href}>
                                 {text}
                             </Link>
                         );
@@ -184,14 +186,12 @@ const Nav = () => {
 
                 <Link
                     href="/contact"
-                    className="group hidden md:flex md:gap-2 md:items-center">
-                    <div className="" aria-hidden="true">
-                        <div
-                            className="relative w-4 aspect-square bg-white p-4 rounded-full  overflow-hidden flex items-center justify-center"
-                            aria-hidden="true">
-                            <HiOutlineArrowRight className="text-black absolute -translate-x-full group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition duration-700" />
-                            <HiOutlineArrowRight className="text-black absolute  group-hover:translate-x-full transition opacity-100 group-hover:opacity-0 duration-700" />
-                        </div>
+                    className="group hidden md:flex md:gap-3 md:items-center">
+                    <div
+                        className={`menu-contact-btn ${menuBtnTheme} rounded-full relative w-4 aspect-square p-4 overflow-hidden flex items-center justify-center`}
+                        aria-hidden="true">
+                        <HiOutlineArrowRight className="absolute -translate-x-full group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition duration-700" />
+                        <HiOutlineArrowRight className="absolute  group-hover:translate-x-full transition opacity-100 group-hover:opacity-0 duration-700" />
                     </div>
                     Get in touch
                 </Link>
