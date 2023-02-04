@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useNav } from "../contexts/Nav";
+import { useNav } from "../contexts/navContext";
 import gsap from "gsap";
 import resolveConfig from "tailwindcss/resolveConfig";
 import { FaCircleNotch } from "react-icons/fa";
 import myConfig from "../tailwind.config";
 import MobileMenu from "./MobileMenu";
 import { HiOutlineArrowRight } from "react-icons/hi";
+import CursorHover from "./CursorHover";
 
 const navLinks = [
     {
@@ -169,32 +170,41 @@ const Nav = () => {
             <div
                 ref={navRef}
                 className="font-semibold text-sm transition fixed z-20 nav-transparent bg-texture flex justify-between items-center p-6 top-0 w-full">
-                <Link href="/" className="flex gap-1 items-center">
-                    <FaCircleNotch className="fill-yellow-400" />
-                    <span className="font-semibold text-xl">Beco</span>
-                </Link>
+                <CursorHover scale={4}>
+                    <Link href="/" className="flex gap-1 items-center">
+                        <FaCircleNotch className="fill-yellow-400" />
+                        <span className="font-semibold text-xl">Beco</span>
+                    </Link>
+                </CursorHover>
 
                 <ul className="hidden md:flex md:items-cneter md:gap-10">
                     {navLinks.map(({ href, text }) => {
                         return (
-                            <Link href={href} key={href}>
-                                {text}
-                            </Link>
+                            <CursorHover scale={4}>
+                                <Link
+                                    href={href}
+                                    key={href}
+                                    className="hover:text-yellow-400 transition">
+                                    {text}
+                                </Link>
+                            </CursorHover>
                         );
                     })}
                 </ul>
 
-                <Link
-                    href="/contact"
-                    className="group hidden md:flex md:gap-3 md:items-center">
-                    <div
-                        className={`menu-contact-btn ${menuBtnTheme} rounded-full relative w-4 aspect-square p-4 overflow-hidden flex items-center justify-center`}
-                        aria-hidden="true">
-                        <HiOutlineArrowRight className="absolute -translate-x-full group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition duration-700" />
-                        <HiOutlineArrowRight className="absolute  group-hover:translate-x-full transition opacity-100 group-hover:opacity-0 duration-700" />
-                    </div>
-                    Get in touch
-                </Link>
+                <CursorHover scale={4}>
+                    <Link
+                        href="/contact"
+                        className="group hidden md:flex md:gap-3 md:items-center">
+                        <div
+                            className={`menu-contact-btn ${menuBtnTheme} rounded-full relative w-4 aspect-square p-4 overflow-hidden flex items-center justify-center`}
+                            aria-hidden="true">
+                            <HiOutlineArrowRight className="absolute -translate-x-full group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition duration-700" />
+                            <HiOutlineArrowRight className="absolute  group-hover:translate-x-full transition opacity-100 group-hover:opacity-0 duration-700" />
+                        </div>
+                        Get in touch
+                    </Link>
+                </CursorHover>
 
                 <button
                     disabled={isMenuBtnDisabled}

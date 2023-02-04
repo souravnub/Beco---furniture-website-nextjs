@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
-import { useNav } from "../contexts/Nav";
+import { useNav } from "../contexts/navContext";
 import { HiOutlineArrowRight } from "react-icons/hi";
 
 const MobileMenu = ({ isOpen, navRef, links, ...props }) => {

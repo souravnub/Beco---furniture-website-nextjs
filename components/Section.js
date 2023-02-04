@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef } from "react";
-import { useNav } from "../contexts/Nav";
+import { useNav } from "../contexts/navContext";
 
 const Section = ({ children, navClass, menuBtnTheme = "dark", ...props }) => {
     const sectionRef = useRef();
