@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }) {
     return (
         <ProvideCursorStates>
             <Cursor />
-            <main className="selection:bg-yellow-400 selection:text-black">
+            <main className="selection:bg-brand selection:text-black">
                 <ProvideNavState>
                     <Nav />
                     <Component {...pageProps} />

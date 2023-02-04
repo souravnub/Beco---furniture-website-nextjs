@@ -172,7 +172,7 @@ const Nav = () => {
                 className="font-semibold text-sm transition fixed z-20 nav-transparent bg-texture flex justify-between items-center p-6 top-0 w-full">
                 <CursorHover scale={4}>
                     <Link href="/" className="flex gap-1 items-center">
-                        <FaCircleNotch className="fill-yellow-400" />
+                        <FaCircleNotch className="fill-brand" />
                         <span className="font-semibold text-xl">Beco</span>
                     </Link>
                 </CursorHover>
@@ -184,7 +184,7 @@ const Nav = () => {
                                 <Link
                                     href={href}
                                     key={href}
-                                    className="hover:text-yellow-400 transition">
+                                    className="hover:text-brand transition">
                                     {text}
                                 </Link>
                             </CursorHover>

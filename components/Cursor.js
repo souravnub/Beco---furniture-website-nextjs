@@ -78,7 +78,7 @@ const Cursor = () => {
         <div
             ref={cursorRef}
             area-hidden="true"
-            className="pointer-events-none fixed border-2 border-yellow-500 w-5 aspect-square rounded-full z-50 -translate-x-1/2 -translate-y-1/2 hidden md:inline-block">
+            className="pointer-events-none fixed border-2 border-brand-500 w-5 aspect-square rounded-full z-50 -translate-x-1/2 -translate-y-1/2 hidden md:inline-block">
             <div
                 ref={contentRef}
                 className="absolute flex items-center justify-center inset-0 opacity-0">

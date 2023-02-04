@@ -62,7 +62,7 @@ const MobileMenu = ({ isOpen, navRef, links, ...props }) => {
             })}
             <Link
                 href={"/contact"}
-                className="group mt-5 ml-5 p-5 grid place-content-center grid-flow-col items-center gap-3 w-fit text-black bg-yellow-400 aspect-square rounded-full">
+                className="group mt-5 ml-5 p-5 grid place-content-center grid-flow-col items-center gap-3 w-fit text-black bg-brand aspect-square rounded-full">
                 <div className="relative w-4 aspect-square" aria-hidden="true">
                     <HiOutlineArrowRight className="absolute group-hover:translate-x-full group-focus:translate-x-full opacity-100 transition group-hover:opacity-0 group-focus:opacity-0 duration-700" />
                     <HiOutlineArrowRight className="absolute opacity-0 right-full group-hover:translate-x-full group-focus:translate-x-full transition group-hover:opacity-100 group-focus:opacity-100 duration-700" />

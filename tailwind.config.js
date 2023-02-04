@@ -21,14 +21,13 @@ module.exports = {
             backgroundImage: {
                 texture: 'url("/bg-img.png")',
             },
-            backgroundColor: {
+            colors: {
                 dark: {
                     DEFAULT: "#1F2122",
                 },
-            },
-            borderColor: {
-                dark: {
-                    DEFAULT: "#5b5f62",
+                brand: {
+                    DEFAULT: "#facc15",
+                    500: "#eab308",
                 },
             },
         },
