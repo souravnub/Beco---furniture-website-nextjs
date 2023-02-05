@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useCursor } from "../contexts/cursorContext";
 
-const CursorHover = ({ fill, scale, content, children }) => {
+const CursorHover = ({ fill, scale, content, children, ...props }) => {
     const { setFill, setScale, setContent, resetCursorStates } = useCursor();
     const wrapperRef = useRef();
 
@@ -25,7 +25,11 @@ const CursorHover = ({ fill, scale, content, children }) => {
     }, []);
 
     return (
-        <div className="inline-block " aria-hidden="true" ref={wrapperRef}>
+        <div
+            className="inline-block"
+            aria-hidden="true"
+            ref={wrapperRef}
+            {...props}>
             {children}
         </div>
     );

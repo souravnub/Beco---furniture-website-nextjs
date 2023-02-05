@@ -1,9 +1,8 @@
 import gsap from "gsap";
 import React, { useEffect, useRef, useState } from "react";
 import { useCursor } from "../contexts/cursorContext";
-import resolveConfig from "tailwindcss/resolveConfig";
-import myConfig from "../tailwind.config";
 import getPxVal from "../utils/getPxVal";
+import getTaliwind from "../utils/getTaliwind";
 
 const Cursor = () => {
     const cursorRef = useRef();
@@ -11,14 +10,13 @@ const Cursor = () => {
 
     const { fill, scale, content } = useCursor();
     const [isCursorInWindow, setIsCursorInWindow] = useState(false);
-    const tailwindConfig = resolveConfig(myConfig);
 
     function animateCursor({ clientX: x, clientY: y }) {
         return gsap.to(cursorRef.current, {
             opacity: 1,
             left: x,
             top: y,
-            duration: 0,
+            duration: 0.3,
         });
     }
     function hideCuror() {
@@ -45,12 +43,13 @@ const Cursor = () => {
 
     // animations for cursorHoverComponent
     useEffect(() => {
-        const cursorWidth = getPxVal(tailwindConfig.theme.width[5]);
+        const cursorWidth = getPxVal(getTaliwind.theme.width[5]);
 
         const timeline = gsap.timeline().to(cursorRef.current, {
             backgroundColor: fill || "transparent",
             width: cursorWidth * scale,
             duration: 0.2,
+            ease: "power",
         });
         const contentAni = gsap.fromTo(
             contentRef.current,
@@ -78,7 +77,7 @@ const Cursor = () => {
         <div
             ref={cursorRef}
             area-hidden="true"
-            className="pointer-events-none fixed border-2 border-brand-500 w-5 aspect-square rounded-full z-50 -translate-x-1/2 -translate-y-1/2 hidden md:inline-block">
+            className="pointer-events-none  fixed border-2  border-brand-500 w-5 aspect-square rounded-full z-50 -translate-x-1/2 -translate-y-1/2 hidden md:inline-block">
             <div
                 ref={contentRef}
                 className="absolute flex items-center justify-center inset-0 opacity-0">

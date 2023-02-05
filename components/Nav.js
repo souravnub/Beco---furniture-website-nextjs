@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useNav } from "../contexts/navContext";
 import gsap from "gsap";
 import resolveConfig from "tailwindcss/resolveConfig";
-import { FaCircleNotch } from "react-icons/fa";
+import { HiOutlineAtSymbol } from "react-icons/hi";
 import myConfig from "../tailwind.config";
 import MobileMenu from "./MobileMenu";
 import { HiOutlineArrowRight } from "react-icons/hi";
@@ -172,7 +172,7 @@ const Nav = () => {
                 className="font-semibold text-sm transition fixed z-20 nav-transparent bg-texture flex justify-between items-center p-6 top-0 w-full">
                 <CursorHover scale={4}>
                     <Link href="/" className="flex gap-1 items-center">
-                        <FaCircleNotch className="fill-brand" />
+                        <HiOutlineAtSymbol className="text-brand text-xl" />
                         <span className="font-semibold text-xl">Beco</span>
                     </Link>
                 </CursorHover>
@@ -180,10 +180,9 @@ const Nav = () => {
                 <ul className="hidden md:flex md:items-cneter md:gap-10">
                     {navLinks.map(({ href, text }) => {
                         return (
-                            <CursorHover scale={4}>
+                            <CursorHover scale={4} key={href}>
                                 <Link
                                     href={href}
-                                    key={href}
                                     className="hover:text-brand transition">
                                     {text}
                                 </Link>

@@ -10,10 +10,6 @@
     width: 0px;
 }
 
-* {
-    @apply lg:cursor-none;
-}
-
 nav {
     --text-clr: white;
     --bg-clr: var(--bg-dark);
@@ -44,7 +40,7 @@ nav > div:nth-of-type(1) {
 /* Nav theme types */
 
 .nav-transparent {
-    --bg-clr: var(--bg-dark);
+    --bg-clr: transparent;
     --text-clr: white;
 }
 
