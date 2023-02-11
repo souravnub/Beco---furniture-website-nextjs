@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import getTaliwind from "../utils/getTaliwind";
 
 const cursorContext = createContext();
 
@@ -19,11 +20,13 @@ function useCursorStates() {
     const [fill, setFill] = useState(undefined);
     const [scale, setScale] = useState(1);
     const [content, setContent] = useState(undefined);
+    const [borderColor, setBorderColor] = useState(undefined);
 
     function resetCursorStates() {
         setFill(undefined);
         setScale(1);
         setContent(undefined);
+        setBorderColor(getTaliwind.theme.borderColor.brand[500]);
     }
 
     return {
@@ -34,5 +37,7 @@ function useCursorStates() {
         content,
         setContent,
         resetCursorStates,
+        borderColor,
+        setBorderColor,
     };
 }

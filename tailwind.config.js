@@ -3,6 +3,7 @@ module.exports = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
+        "./sections/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         extend: {
@@ -17,6 +18,9 @@ module.exports = {
             },
             fontFamily: {
                 sans: "Syne, sans-serif",
+                serif: "Cormorant, serif",
+                mayfest: "MAYFEST, serif",
+                bonelest: "BONELEST, serif",
             },
             backgroundImage: {
                 texture: 'url("/bg-img.png")',

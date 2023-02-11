@@ -3,39 +3,51 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef } from "react";
 import { useNav } from "../contexts/navContext";
 
-const Section = ({ children, navClass, menuBtnTheme = "dark", ...props }) => {
-    const sectionRef = useRef();
-    const { setNavType, navHeight, setMenuBtnTheme } = useNav();
+gsap.registerPlugin(ScrollTrigger);
 
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-        let scrollTrigger;
-        if (navHeight !== undefined) {
-            scrollTrigger = ScrollTrigger.create({
-                trigger: sectionRef.current,
-                start: `top +=${navHeight}`,
-                end: `bottom +=${navHeight}`,
+const Section = ({
+  children,
+  navClass,
+  menuBtnTheme = "dark",
+  refreshScrollTrigger = [],
+  ...props
+}) => {
+  const sectionRef = useRef();
+  const scrollTriggerRef = useRef();
 
-                onEnter: () => {
-                    setNavType(navClass || "nav-white");
-                    setMenuBtnTheme(menuBtnTheme);
-                },
-                onEnterBack: () => {
-                    setNavType(navClass || "nav-white");
-                    setMenuBtnTheme(menuBtnTheme);
-                },
-            });
-        }
-        return () => {
-            scrollTrigger?.kill();
-        };
-    }, [navHeight]);
+  const { setNavType, navHeight, setMenuBtnTheme } = useNav();
 
-    return (
-        <section ref={sectionRef} {...props}>
-            {children}
-        </section>
-    );
+  useEffect(() => {
+    scrollTriggerRef.current?.refresh();
+  }, [...refreshScrollTrigger]);
+
+  useEffect(() => {
+    if (navHeight !== undefined) {
+      scrollTriggerRef.current = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: `top +=${navHeight}`,
+        end: `bottom +=${navHeight}`,
+
+        onEnter: () => {
+          setNavType(navClass || "nav-white");
+          setMenuBtnTheme(menuBtnTheme);
+        },
+        onEnterBack: () => {
+          setNavType(navClass || "nav-white");
+          setMenuBtnTheme(menuBtnTheme);
+        },
+      });
+    }
+    return () => {
+      scrollTriggerRef.current?.kill();
+    };
+  }, [navHeight]);
+
+  return (
+    <section ref={sectionRef} {...props}>
+      {children}
+    </section>
+  );
 };
 
 export default Section;

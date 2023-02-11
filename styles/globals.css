@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "MAYFEST";
+    src: url("../public/fonts/Mayfest_Regular\ -\ Demo.ttf");
+}
+@font-face {
+    font-family: "BONELEST";
+    src: url("../public/fonts/Bonelest-DEMO-BF63d04449d849c.ttf");
+}
+
 :root {
     --bg-dark: rgb(31, 33, 34);
 }
