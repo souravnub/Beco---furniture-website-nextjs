@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Section from "../components/Section";
-import ProductCard from "./ProductCard";
+import ProductCard from "../components/ProductCard";
 import { MdCallMissedOutgoing } from "react-icons/md";
 import CursorHover from "../components/CursorHover";
+import gsap from "gsap";
 
 const products = [
     {
@@ -24,6 +25,33 @@ const products = [
 ];
 
 const SelectedProducts = () => {
+    const headingRef = useRef();
+    const sectionIntroRef = useRef();
+
+    useEffect(() => {
+        gsap.fromTo(
+            [
+                sectionIntroRef.current,
+                headingRef.current.querySelector("h1"),
+                headingRef.current.querySelector("p"),
+            ],
+            {
+                opacity: 0,
+                y: 40,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                stagger: 0.15,
+                ease: "power",
+                scrollTrigger: {
+                    trigger: headingRef.current,
+                    start: "top 85%",
+                },
+            }
+        );
+    }, []);
+
     return (
         <Section
             className="bg-texture px-3 pt-24 pb-12"
@@ -31,12 +59,15 @@ const SelectedProducts = () => {
             menuBtnTheme="dark">
             {/* header below */}
             <div className="flex flex-col gap-y-3 md:flex-row md:justify-between">
-                <span className="text-sm font-semibold">Selected products</span>
+                <span className="text-sm font-semibold" ref={sectionIntroRef}>
+                    Selected products
+                </span>
 
-                <div className="md:w-7/12 md:min-w-[25rem]">
-                    <h1 className="text-5xl font-bold sm:text-6xl ">
+                <div ref={headingRef} className="md:w-7/12 md:min-w-[25rem]">
+                    <h1 className="text-5xl font-bold sm:text-6xl">
                         Best crafted furniture that sets you apart
                     </h1>
+
                     <p className="mt-4 text-sm font-semibold text-gray-900">
                         Browse the quality products, that will get you going
                     </p>
