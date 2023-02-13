@@ -16,28 +16,13 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
         const timeline = gsap.timeline({
             scrollTrigger: {
                 trigger: cardRef.current,
-                start: "top 80%",
+                start: "top 85%",
                 ease: "power",
             },
             onComplete: () => {
                 setIsHoverAniEnabled(true);
             },
         });
-        const hoverAni = gsap.timeline({ paused: true });
-        hoverAni
-            .to(illustrationRef.current.querySelector("img"), {
-                x: 5,
-                duration: 0.05,
-            })
-            .to(
-                bgImgRef.current,
-                {
-                    duration: 0.05,
-                    scale: 1.05,
-                },
-                "<"
-            );
-        hoverAniRef.current = hoverAni;
 
         timeline
             .fromTo(bgImgRef.current, { scale: 1.5 }, { scale: 1, duration: 1 })
@@ -73,6 +58,21 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
                 "<-0.5"
             );
 
+        const hoverAni = gsap.timeline({ paused: true });
+        hoverAni
+            .to(illustrationRef.current.querySelector("img"), {
+                x: 5,
+                duration: 0.05,
+            })
+            .to(
+                bgImgRef.current,
+                {
+                    duration: 0.05,
+                    scale: 1.05,
+                },
+                "<"
+            );
+        hoverAniRef.current = hoverAni;
         return () => {
             hoverAniRef.current.revert();
             timeline.revert();

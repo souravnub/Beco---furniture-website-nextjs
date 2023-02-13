@@ -25,15 +25,14 @@ const products = [
 ];
 
 const SelectedProducts = () => {
-    const headingRef = useRef();
-    const sectionIntroRef = useRef();
+    const sectionRef = useRef();
 
     useEffect(() => {
         gsap.fromTo(
             [
-                sectionIntroRef.current,
-                headingRef.current.querySelector("h1"),
-                headingRef.current.querySelector("p"),
+                sectionRef.current.querySelector(":scope > span"),
+                sectionRef.current.querySelector("div > h1"),
+                sectionRef.current.querySelector("div > p"),
             ],
             {
                 opacity: 0,
@@ -45,7 +44,7 @@ const SelectedProducts = () => {
                 stagger: 0.15,
                 ease: "power",
                 scrollTrigger: {
-                    trigger: headingRef.current,
+                    trigger: sectionRef.current,
                     start: "top 85%",
                 },
             }
@@ -58,12 +57,12 @@ const SelectedProducts = () => {
             navClass="nav-white"
             menuBtnTheme="dark">
             {/* header below */}
-            <div className="flex flex-col gap-y-3 md:flex-row md:justify-between">
-                <span className="text-sm font-semibold" ref={sectionIntroRef}>
-                    Selected products
-                </span>
+            <div
+                className="flex flex-col gap-y-3 md:flex-row md:justify-between"
+                ref={sectionRef}>
+                <span className="text-sm font-semibold">Selected products</span>
 
-                <div ref={headingRef} className="md:w-7/12 md:min-w-[25rem]">
+                <div className="md:w-7/12 md:min-w-[25rem]">
                     <h1 className="text-5xl font-bold sm:text-6xl">
                         Best crafted furniture that sets you apart
                     </h1>

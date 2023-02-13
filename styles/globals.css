@@ -10,7 +10,6 @@
     font-family: "BONELEST";
     src: url("../public/fonts/Bonelest-DEMO-BF63d04449d849c.ttf");
 }
-
 :root {
     --bg-dark: rgb(31, 33, 34);
 }
@@ -56,6 +55,7 @@ nav > div:nth-of-type(1) {
 .nav-dark {
     --text-clr: white;
     --bg-clr: var(--bg-dark);
+    @apply border-dark-fade;
 }
 
 .nav-white {
