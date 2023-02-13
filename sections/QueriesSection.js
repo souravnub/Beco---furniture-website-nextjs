@@ -39,6 +39,7 @@ const QueriesSection = () => {
 
     return (
         <Section
+            cursorBorderColor="black"
             navClass="nav-brand"
             menuBtnTheme="dark"
             className="bg-brand-500 bg-texture pt-28 pb-12">
