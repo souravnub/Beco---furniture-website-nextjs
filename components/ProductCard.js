@@ -25,7 +25,7 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
         });
 
         timeline
-            .fromTo(bgImgRef.current, { scale: 1.5 }, { scale: 1, duration: 1 })
+            .fromTo(bgImgRef.current, { scale: 1.5 }, { scale: 1 })
             .fromTo(
                 cardRef.current.querySelector("h3"),
                 {
@@ -89,7 +89,10 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
 
         if (isHoverAniEnabled) {
             cardRef.current.addEventListener("mouseover", playHoverAnimation);
-            cardRef.current.addEventListener("mouseout", reverseHoverAnimation);
+            cardRef.current.addEventListener(
+                "mouseleave",
+                reverseHoverAnimation
+            );
         }
 
         return () => {
@@ -98,7 +101,7 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
                 playHoverAnimation
             );
             cardRef.current.removeEventListener(
-                "mouseout",
+                "mouseleave",
                 reverseHoverAnimation
             );
         };

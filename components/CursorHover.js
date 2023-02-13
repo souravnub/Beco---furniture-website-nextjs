@@ -26,13 +26,13 @@ const CursorHover = ({
 
     useEffect(() => {
         wrapperRef.current.addEventListener("mouseleave", handleMouseOut);
-        wrapperRef.current.addEventListener("mouseenter", handleMouseIn);
+        wrapperRef.current.addEventListener("mouseover", handleMouseIn);
         return () => {
             wrapperRef.current.removeEventListener(
                 "mouseleave",
                 handleMouseOut
             );
-            wrapperRef.current.removeEventListener("mouseenter", handleMouseIn);
+            wrapperRef.current.removeEventListener("mouseover", handleMouseIn);
         };
     }, []);
 
