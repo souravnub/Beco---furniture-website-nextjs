@@ -3,13 +3,16 @@ import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import Section from "../components/Section";
 import Accordion from "../components/Accordion";
+import { useNav } from "../contexts/navContext";
 
 const queries = [
     {
+        id: 1,
         title: "How much time it take to make a bed?",
         desc: "It depends on the type. But we complete building a bed in 25-30days.",
     },
     {
+        id: 2,
         title: "Who is the CEO of Beco?",
         desc: "The CEO is the one-n-only SouravNub.",
     },
@@ -17,6 +20,7 @@ const queries = [
 
 const QueriesSection = () => {
     const headingRef = useRef();
+    const { setNavCursorBorderColor } = useNav();
 
     useEffect(() => {
         gsap.fromTo(
@@ -40,6 +44,10 @@ const QueriesSection = () => {
     return (
         <Section
             cursorBorderColor="black"
+            onInView={() => {
+                // when ever this section will be in view the cursor border color for nav will be set to white;
+                setNavCursorBorderColor("white");
+            }}
             navClass="nav-brand"
             menuBtnTheme="dark"
             className="bg-brand-500 bg-texture pt-28 pb-12">

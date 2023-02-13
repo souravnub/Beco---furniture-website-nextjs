@@ -1,4 +1,5 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
+import getTaliwind from "../utils/getTaliwind";
 
 const navContext = createContext();
 
@@ -20,6 +21,9 @@ function navStates() {
         useState(undefined);
     const [menuBtnTheme, setMenuBtnTheme] = useState("light");
     const [initialNavHeight, setInitialNavHeight] = useState(0);
+    const [navCursorBorderColor, setNavCursorBorderColor] = useState(
+        getTaliwind.theme.borderColor.brand[500]
+    );
 
     return {
         navType,
@@ -34,5 +38,7 @@ function navStates() {
         setMenuBtnTheme,
         initialNavHeight,
         setInitialNavHeight,
+        navCursorBorderColor,
+        setNavCursorBorderColor,
     };
 }

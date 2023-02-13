@@ -12,6 +12,7 @@ const Section = ({
     navClass,
     cursorBorderColor,
     menuBtnTheme = "dark",
+    onInView,
     refreshScrollTrigger = [],
     ...props
 }) => {
@@ -19,7 +20,8 @@ const Section = ({
     const scrollTriggerRef = useRef();
 
     const { setBorderColor } = useCursor();
-    const { setNavType, navHeight, setMenuBtnTheme } = useNav();
+    const { setNavType, navHeight, setMenuBtnTheme, setNavCursorBorderColor } =
+        useNav();
 
     useEffect(() => {
         function handleCursorBorder() {
@@ -30,7 +32,7 @@ const Section = ({
         }
         if (cursorBorderColor) {
             sectionRef.current.addEventListener(
-                "mouseover",
+                "mouseenter",
                 handleCursorBorder
             );
             sectionRef.current.addEventListener(
@@ -41,7 +43,7 @@ const Section = ({
         return () => {
             if (cursorBorderColor) {
                 sectionRef.current.removeEventListener(
-                    "mouseover",
+                    "mouseenter",
                     handleCursorBorder
                 );
                 sectionRef.current.removeEventListener(
@@ -58,19 +60,29 @@ const Section = ({
 
     useEffect(() => {
         if (navHeight !== undefined) {
+            function handleSectionInView() {
+                setNavType(navClass || "nav-white");
+                setMenuBtnTheme(menuBtnTheme);
+                if (onInView) {
+                    onInView();
+                }
+            }
+            function handleSectionLeave() {
+                setNavType("nav-white");
+                setMenuBtnTheme("dark");
+                setNavCursorBorderColor(
+                    getTaliwind.theme.borderColor.brand[500]
+                );
+            }
             scrollTriggerRef.current = ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: `top +=${navHeight}`,
                 end: `bottom +=${navHeight}`,
 
-                onEnter: () => {
-                    setNavType(navClass || "nav-white");
-                    setMenuBtnTheme(menuBtnTheme);
-                },
-                onEnterBack: () => {
-                    setNavType(navClass || "nav-white");
-                    setMenuBtnTheme(menuBtnTheme);
-                },
+                onEnter: handleSectionInView,
+                onEnterBack: handleSectionInView,
+                onLeave: handleSectionLeave,
+                onLeaveBack: handleSectionLeave,
             });
         }
         return () => {
