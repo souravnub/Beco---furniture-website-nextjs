@@ -63,9 +63,10 @@ nav > div:nth-of-type(1) {
     --text-clr: var(--bg-dark);
 }
 
-.nav-orange {
-    --bg-clr: orange;
+.nav-brand {
+    --bg-clr: #eab308;
     --text-clr: var(--bg-dark);
+    @apply border-dark-fade;
 }
 
 /* nav menu button Theme Types */

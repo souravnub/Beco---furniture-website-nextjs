@@ -4,6 +4,7 @@ import ProductCard from "../components/ProductCard";
 import { MdCallMissedOutgoing } from "react-icons/md";
 import CursorHover from "../components/CursorHover";
 import gsap from "gsap";
+import Link from "next/link";
 
 const products = [
     {
@@ -91,16 +92,20 @@ const SelectedProducts = () => {
                 )}
             </div>
 
-            <div className="mt-16 flex justify-center">
-                <CursorHover borderColor="transparent" className="inline-block">
-                    <button className="group relative isolate flex aspect-square items-center gap-2 overflow-hidden rounded-full border border-dark p-6 text-sm font-semibold text-gray-900 transition duration-500 hover:border-transparent focus:border-transparent">
+            <div className="mt-16 flex justify-center rounded-full">
+                <CursorHover
+                    borderColor="transparent"
+                    className="inline-block rounded-full">
+                    <Link
+                        href="/products"
+                        className="group relative isolate flex aspect-square items-center gap-2 overflow-hidden rounded-full border border-dark p-6 text-sm font-semibold text-gray-900 transition duration-500 hover:border-transparent focus:border-transparent">
                         <MdCallMissedOutgoing className="text-2xl" />
                         All products
                         {/* btn fill */}
                         <div
                             aria-hidden="true"
                             className="absolute top-1/2 left-1/2 -z-10 aspect-square w-full -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-brand transition duration-500 group-hover:scale-100 group-focus:scale-100"></div>
-                    </button>
+                    </Link>
                 </CursorHover>
             </div>
         </Section>

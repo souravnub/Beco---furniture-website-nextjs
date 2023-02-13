@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import Section from "../components/Section";
 import FactsSection from "../sections/FactsSection";
 import Hero from "../sections/Hero";
+import QueriesSection from "../sections/QueriesSection";
 import SelectedProducts from "../sections/SelectedProducts";
 
 export default function Home() {
@@ -57,6 +58,8 @@ export default function Home() {
             </Section>
 
             <FactsSection />
+
+            <QueriesSection />
         </>
     );
 }
