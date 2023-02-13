@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import getTaliwind from "../utils/getTaliwind";
 
 const Accordion = ({ data, ...props }) => {
@@ -22,6 +22,7 @@ const Accordion = ({ data, ...props }) => {
     }, []);
 
     function handleExpandAccordian({ currentTarget: clicked_btn }) {
+        console.log("lcick");
         const description_para = clicked_btn.querySelector("p");
         const illustration = clicked_btn.querySelector(
             ":scope > div:nth-of-type(1) > div"
@@ -30,12 +31,22 @@ const Accordion = ({ data, ...props }) => {
             clicked_btn.getAttribute("aria-expanded") === "true" ? true : false;
         const description_height = description_para.offsetHeight;
 
+        if (clicked_btn.disabled) {
+            return;
+        }
+
         if (isExpanded) {
             clicked_btn.setAttribute("aria-expanded", "false");
             description_para.setAttribute("aria-hidden", "true");
 
             const collapseTimeline = gsap.timeline({
                 ease: "power2.inOut",
+                onStart: () => {
+                    clicked_btn.disabled = "disabled";
+                },
+                onComplete: () => {
+                    clicked_btn.disabled = false;
+                },
             });
             collapseTimeline
                 .to(description_para, {
@@ -59,6 +70,12 @@ const Accordion = ({ data, ...props }) => {
 
             const expandTimeline = gsap.timeline({
                 ease: "power2.inOut",
+                onStart: () => {
+                    clicked_btn.disabled = "disabled";
+                },
+                onComplete: () => {
+                    clicked_btn.disabled = false;
+                },
             });
             expandTimeline
                 .to(clicked_btn, {
@@ -86,7 +103,7 @@ const Accordion = ({ data, ...props }) => {
                             aria-controls="description"
                             aria-expanded="false"
                             onClick={handleExpandAccordian}
-                            className="relative flex w-full flex-col justify-start px-1 py-4">
+                            className="relative flex w-full flex-col justify-start px-1 py-4 ">
                             <div className="flex w-full items-center justify-between">
                                 <span className="font-semibold">{title}</span>
                                 <div
