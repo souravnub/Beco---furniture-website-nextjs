@@ -5,7 +5,8 @@ import Section from "../components/Section";
 import Accordion from "../components/Accordion";
 import { useNav } from "../contexts/navContext";
 import CursorHover from "../components/CursorHover";
-import getTailwind, { getTailwindColors } from "../utils/getTailwind";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { getTailwindColors } from "../utils/getTailwind";
 
 const queries = [
     {
@@ -19,6 +20,46 @@ const queries = [
         desc: "The CEO is the one-n-only SouravNub.",
     },
 ];
+
+const ContactHoverComponent = () => {
+    const ref = useRef();
+
+    useEffect(() => {
+        const arrowsTimeline = gsap.timeline({
+            repeat: -1,
+            yoyo: true,
+            defaults: {
+                ease: "expo.in",
+                duration: 0.6,
+            },
+        });
+
+        arrowsTimeline
+            .to(ref.current.querySelectorAll(":scope > svg:nth-of-type(1)"), {
+                x: -2,
+            })
+            .to(
+                ref.current.querySelectorAll(":scope > svg:nth-of-type(2)"),
+                {
+                    x: 2,
+                },
+                "<"
+            );
+
+        return () => {
+            arrowsTimeline.revert();
+        };
+    }, []);
+
+    return (
+        <div
+            ref={ref}
+            className="absolute flex h-full w-full items-center justify-center -space-x-1 rounded-full text-xl">
+            <HiChevronLeft />
+            <HiChevronRight />
+        </div>
+    );
+};
 
 const QueriesSection = () => {
     const headingRef = useRef();
@@ -92,10 +133,14 @@ const QueriesSection = () => {
                         hoverStates={{
                             scale: 3,
                             borderColor: "white",
+                            fill: "white",
+                            content: <ContactHoverComponent />,
                         }}
                         exitStates={{
                             borderColor: "black",
                             scale: 1,
+                            fill: "transparent",
+                            content: null,
                         }}>
                         <Link href="/contact" className="text-white">
                             contact us
