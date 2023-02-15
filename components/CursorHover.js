@@ -1,38 +1,27 @@
 import React, { useEffect, useRef } from "react";
 import { useCursor } from "../contexts/cursorContext";
 
-const CursorHover = ({
-    fill,
-    scale,
-    content,
-    borderColor,
-    children,
-    ...props
-}) => {
-    const { setFill, setScale, setContent, resetCursorStates, setBorderColor } =
-        useCursor();
+const CursorHover = ({ hoverStates, exitStates, children, ...props }) => {
+    const { setCursorStates } = useCursor();
     const wrapperRef = useRef();
 
     function handleMouseIn() {
-        setBorderColor(borderColor);
-        setFill(fill);
-        setScale(scale);
-        setContent(content);
+        setCursorStates(hoverStates);
     }
 
     function handleMouseOut() {
-        resetCursorStates();
+        setCursorStates(exitStates);
     }
 
     useEffect(() => {
         wrapperRef.current.addEventListener("mouseleave", handleMouseOut);
-        wrapperRef.current.addEventListener("mouseover", handleMouseIn);
+        wrapperRef.current.addEventListener("mouseenter", handleMouseIn);
         return () => {
             wrapperRef.current.removeEventListener(
                 "mouseleave",
                 handleMouseOut
             );
-            wrapperRef.current.removeEventListener("mouseover", handleMouseIn);
+            wrapperRef.current.removeEventListener("mouseenter", handleMouseIn);
         };
     }, []);
 

@@ -4,6 +4,8 @@ import React, { useEffect, useRef } from "react";
 import Section from "../components/Section";
 import Accordion from "../components/Accordion";
 import { useNav } from "../contexts/navContext";
+import CursorHover from "../components/CursorHover";
+import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
 const queries = [
     {
@@ -43,7 +45,10 @@ const QueriesSection = () => {
 
     return (
         <Section
-            cursorBorderColor="black"
+            cursorStates={{ borderColor: "black" }}
+            cursorExitStates={{
+                borderColor: getTailwindColors.brand[500],
+            }}
             onInView={() => {
                 // when ever this section will be in view the cursor border color for nav will be set to white;
                 setNavCursorBorderColor("white");
@@ -82,12 +87,20 @@ const QueriesSection = () => {
                 <Accordion data={queries} className="mt-6 mb-10" />
 
                 <span className="font-semibold ">
-                    still wondering about something? Feel free to
-                    <Link href="/contact" className="text-white">
-                        {" "}
-                        contact us
-                    </Link>
-                    .
+                    still wondering about something? Feel free to{" "}
+                    <CursorHover
+                        hoverStates={{
+                            scale: 3,
+                            borderColor: "white",
+                        }}
+                        exitStates={{
+                            borderColor: "black",
+                            scale: 1,
+                        }}>
+                        <Link href="/contact" className="text-white">
+                            contact us
+                        </Link>
+                    </CursorHover>
                 </span>
             </div>
         </Section>

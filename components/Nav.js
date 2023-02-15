@@ -9,7 +9,7 @@ import MobileMenu from "./MobileMenu";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import CursorHover from "./CursorHover";
 import { useCursor } from "../contexts/cursorContext";
-import getTaliwind from "../utils/getTaliwind";
+import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
 const navLinks = [
     {
@@ -34,7 +34,7 @@ const Nav = () => {
         setInitialNavHeight,
         navCursorBorderColor,
     } = useNav();
-    const { setBorderColor } = useCursor();
+    const { setCursorStates } = useCursor();
     const navRef = useRef();
     const navPaddingAni = useRef();
     const menuBtnRef = useRef();
@@ -54,7 +54,7 @@ const Nav = () => {
         setNavHeight(navRef.current.offsetHeight);
         setInitialNavHeight(navRef.current.offsetHeight);
         // newNavPadding should be small than what is in the className of nav
-        const newNavPadding = getTaliwind.theme.spacing[3];
+        const newNavPadding = getTailwind.theme.spacing[3];
 
         navPaddingAni.current = gsap.to(navRef.current, {
             paddingTop: newNavPadding,
@@ -87,19 +87,19 @@ const Nav = () => {
     }, []);
 
     useEffect(() => {
-        //setting border color of cursor when nav is hovered
+        //setting border color of cursor when cursor is in nav
         function setCursorBorderOnHover() {
-            setBorderColor(navCursorBorderColor);
+            setCursorStates({ borderColor: navCursorBorderColor });
         }
         function setCursorBorderToDefault() {
-            setBorderColor(getTaliwind.theme.borderColor.brand[500]);
+            setCursorStates({ borderColor: getTailwindColors.brand[500] });
         }
-        navRef.current.addEventListener("mouseover", setCursorBorderOnHover);
+        navRef.current.addEventListener("mouseenter", setCursorBorderOnHover);
         navRef.current.addEventListener("mouseleave", setCursorBorderToDefault);
 
         return () => {
             navRef.current.removeEventListener(
-                "mouseover",
+                "mouseenter",
                 setCursorBorderOnHover
             );
             navRef.current.removeEventListener(
@@ -179,7 +179,7 @@ const Nav = () => {
                 });
         } else {
             navAniRef.current = animateNav({
-                toBg: getTaliwind.theme.backgroundColor.dark.DEFAULT,
+                toBg: getTailwindColors.dark.DEFAULT,
             })
                 .play()
                 .eventCallback("onStart", () => {
@@ -196,9 +196,11 @@ const Nav = () => {
             <div
                 ref={navRef}
                 className="nav-transparent fixed top-0 z-20 flex w-full items-center justify-between bg-texture p-6 text-sm font-semibold transition">
-                <CursorHover scale={4}>
+                <CursorHover
+                    hoverStates={{ scale: 4 }}
+                    exitStates={{ scale: 1 }}>
                     <Link href="/" className="flex items-center gap-1">
-                        <HiOutlineAtSymbol className="text-xl text-brand" />
+                        <HiOutlineAtSymbol className="text-xl text-inherit" />
                         <span className="text-xl font-semibold">Beco</span>
                     </Link>
                 </CursorHover>
@@ -206,7 +208,10 @@ const Nav = () => {
                 <ul className="md:items-cneter hidden md:flex md:gap-10">
                     {navLinks.map(({ href, text }) => {
                         return (
-                            <CursorHover scale={4} key={href}>
+                            <CursorHover
+                                key={href}
+                                hoverStates={{ scale: 4 }}
+                                exitStates={{ scale: 1 }}>
                                 <Link
                                     href={href}
                                     className="transition hover:text-brand">
@@ -217,7 +222,9 @@ const Nav = () => {
                     })}
                 </ul>
 
-                <CursorHover scale={4}>
+                <CursorHover
+                    hoverStates={{ scale: 4 }}
+                    exitStates={{ scale: 1 }}>
                     <Link
                         href="/contact"
                         className="group hidden md:flex md:items-center md:gap-3">

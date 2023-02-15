@@ -1,5 +1,5 @@
 import { useState, createContext, useContext, useEffect } from "react";
-import getTaliwind from "../utils/getTaliwind";
+import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
 const navContext = createContext();
 
@@ -22,7 +22,7 @@ function navStates() {
     const [menuBtnTheme, setMenuBtnTheme] = useState("light");
     const [initialNavHeight, setInitialNavHeight] = useState(0);
     const [navCursorBorderColor, setNavCursorBorderColor] = useState(
-        getTaliwind.theme.borderColor.brand[500]
+        getTailwindColors.brand[500]
     );
 
     return {

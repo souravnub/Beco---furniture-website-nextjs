@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import React, { useEffect, useRef, useState } from "react";
 import CursorHover from "../components/CursorHover";
-import getTaliwind from "../utils/getTaliwind";
+import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
 const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
     const infoContainerRef = useRef();
@@ -109,19 +109,25 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
 
     return (
         <CursorHover
-            scale={4}
-            borderColor="transparent"
-            className="mt-24 inline-block"
-            content={
-                <span
-                    className="font-mayfest text-sm font-bold"
-                    style={{ color: cursorColor }}>
-                    view
-                </span>
-            }
-            fill={
-                cursorFill || getTaliwind.theme.backgroundColor.brand.DEFAULT
-            }>
+            hoverStates={{
+                scale: 4,
+                content: (
+                    <span
+                        className="font-mayfest text-sm font-bold"
+                        style={{ color: cursorColor }}>
+                        view
+                    </span>
+                ),
+                fill: cursorFill || "transparent",
+                borderColor: "transparent",
+            }}
+            exitStates={{
+                scale: 1,
+                content: null,
+                fill: "transparent",
+                borderColor: getTailwindColors.brand[500],
+            }}
+            className="mt-24 inline-block">
             <div
                 ref={cardRef}
                 className="group relative isolate aspect-[1/1.3] w-[18rem]  cursor-pointer">

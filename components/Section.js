@@ -3,14 +3,15 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef } from "react";
 import { useCursor } from "../contexts/cursorContext";
 import { useNav } from "../contexts/navContext";
-import getTaliwind from "../utils/getTaliwind";
+import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Section = ({
     children,
     navClass,
-    cursorBorderColor,
+    cursorStates,
+    cursorExitStates,
     menuBtnTheme = "dark",
     onInView,
     refreshScrollTrigger = [],
@@ -19,36 +20,33 @@ const Section = ({
     const sectionRef = useRef();
     const scrollTriggerRef = useRef();
 
-    const { setBorderColor } = useCursor();
+    const { setCursorStates } = useCursor();
     const { setNavType, navHeight, setMenuBtnTheme, setNavCursorBorderColor } =
         useNav();
 
     useEffect(() => {
-        function handleCursorBorder() {
-            setBorderColor(cursorBorderColor);
+        function handleCursorOver() {
+            setCursorStates(cursorStates);
         }
-        function setBorderColorToDefault() {
-            setBorderColor(getTaliwind.theme.borderColor.brand[500]);
+        function handleCursorLeave() {
+            setCursorStates(cursorExitStates);
         }
-        if (cursorBorderColor) {
-            sectionRef.current.addEventListener(
-                "mouseenter",
-                handleCursorBorder
-            );
+        if (cursorStates !== undefined || cursorExitStates !== undefined) {
+            sectionRef.current.addEventListener("mouseenter", handleCursorOver);
             sectionRef.current.addEventListener(
                 "mouseleave",
-                setBorderColorToDefault
+                handleCursorLeave
             );
         }
         return () => {
-            if (cursorBorderColor) {
+            if (cursorStates !== undefined || cursorExitStates !== undefined) {
                 sectionRef.current.removeEventListener(
                     "mouseenter",
-                    handleCursorBorder
+                    handleCursorOver
                 );
                 sectionRef.current.removeEventListener(
                     "mouseleave",
-                    setBorderColorToDefault
+                    handleCursorLeave
                 );
             }
         };
@@ -70,9 +68,7 @@ const Section = ({
             function handleSectionLeave() {
                 setNavType("nav-white");
                 setMenuBtnTheme("dark");
-                setNavCursorBorderColor(
-                    getTaliwind.theme.borderColor.brand[500]
-                );
+                setNavCursorBorderColor(getTailwindColors.brand[500]);
             }
             scrollTriggerRef.current = ScrollTrigger.create({
                 trigger: sectionRef.current,

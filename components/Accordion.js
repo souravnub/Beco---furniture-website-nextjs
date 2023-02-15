@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import React, { useEffect, useRef, useState } from "react";
-import getTaliwind from "../utils/getTaliwind";
+import getTailwind from "../utils/getTailwind";
 
 const Accordion = ({ data, ...props }) => {
     const accordianRef = useRef();
@@ -22,7 +22,6 @@ const Accordion = ({ data, ...props }) => {
     }, []);
 
     function handleExpandAccordian({ currentTarget: clicked_btn }) {
-        console.log("lcick");
         const description_para = clicked_btn.querySelector("p");
         const illustration = clicked_btn.querySelector(
             ":scope > div:nth-of-type(1) > div"
@@ -61,7 +60,7 @@ const Accordion = ({ data, ...props }) => {
                 })
                 .to(
                     illustration,
-                    { width: getTaliwind.theme.width[1], duration: 0.3 },
+                    { width: getTailwind.theme.width[1], duration: 0.3 },
                     "<"
                 );
         } else {
@@ -96,9 +95,11 @@ const Accordion = ({ data, ...props }) => {
             ref={accordianRef}
             aria-label="Accordion Control Button Group"
             {...props}>
-            {data.map(({ title, desc }) => {
+            {data.map(({ id, title, desc }) => {
                 return (
-                    <li className="border-b border-dark first:border-t">
+                    <li
+                        key={id}
+                        className="border-b border-dark first:border-t">
                         <button
                             aria-controls="description"
                             aria-expanded="false"

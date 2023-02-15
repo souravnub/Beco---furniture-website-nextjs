@@ -5,6 +5,7 @@ import { MdCallMissedOutgoing } from "react-icons/md";
 import CursorHover from "../components/CursorHover";
 import gsap from "gsap";
 import Link from "next/link";
+import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
 const products = [
     {
@@ -94,7 +95,12 @@ const SelectedProducts = () => {
 
             <div className="mt-16 flex justify-center rounded-full">
                 <CursorHover
-                    borderColor="transparent"
+                    hoverStates={{
+                        borderColor: "transparent",
+                    }}
+                    exitStates={{
+                        borderColor: getTailwindColors.brand[500],
+                    }}
                     className="inline-block rounded-full">
                     <Link
                         href="/products"
