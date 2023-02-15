@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef, useState } from "react";
 import getTailwind from "../utils/getTailwind";
 
@@ -21,7 +22,7 @@ const Accordion = ({ data, ...props }) => {
         });
     }, []);
 
-    function handleExpandAccordian({ currentTarget: clicked_btn }) {
+    function handleAccordianItemState({ currentTarget: clicked_btn }) {
         const description_para = clicked_btn.querySelector("p");
         const illustration = clicked_btn.querySelector(
             ":scope > div:nth-of-type(1) > div"
@@ -45,6 +46,7 @@ const Accordion = ({ data, ...props }) => {
                 },
                 onComplete: () => {
                     clicked_btn.disabled = false;
+                    ScrollTrigger.refresh(true);
                 },
             });
             collapseTimeline
@@ -74,6 +76,7 @@ const Accordion = ({ data, ...props }) => {
                 },
                 onComplete: () => {
                     clicked_btn.disabled = false;
+                    ScrollTrigger.refresh(true);
                 },
             });
             expandTimeline
@@ -103,7 +106,7 @@ const Accordion = ({ data, ...props }) => {
                         <button
                             aria-controls="description"
                             aria-expanded="false"
-                            onClick={handleExpandAccordian}
+                            onClick={handleAccordianItemState}
                             className="relative flex w-full flex-col justify-start px-1 py-4 ">
                             <div className="flex w-full items-center justify-between">
                                 <span className="font-semibold">{title}</span>
