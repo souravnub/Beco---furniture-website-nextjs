@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import Section from "../components/Section";
+import Contact from "../sections/Contact";
 import FactsSection from "../sections/FactsSection";
 import Hero from "../sections/Hero";
 import QueriesSection from "../sections/QueriesSection";
@@ -60,6 +61,8 @@ export default function Home() {
             <FactsSection />
 
             <QueriesSection />
+
+            <Contact />
         </>
     );
 }

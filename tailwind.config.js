@@ -28,6 +28,7 @@ module.exports = {
             colors: {
                 dark: {
                     DEFAULT: "#1F2122",
+                    100: "#272727",
                     fade: "#373a3b",
                 },
                 brand: {
