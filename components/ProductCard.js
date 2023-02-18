@@ -1,14 +1,24 @@
 import gsap from "gsap";
 import React, { useEffect, useRef, useState } from "react";
 import CursorHover from "../components/CursorHover";
+import getHalfArray from "../utils/getHalfArray";
 import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
-const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
+const ProductCard = ({
+    id,
+    name,
+    img,
+    price,
+    cursorFill,
+    cursorColor,
+    categories,
+}) => {
     const infoContainerRef = useRef();
     const cardRef = useRef();
     const illustrationRef = useRef();
     const bgImgRef = useRef();
     const hoverAniRef = useRef();
+    const categoriesContainerRef = useRef();
 
     const [isHoverAniEnabled, setIsHoverAniEnabled] = useState(false);
 
@@ -56,6 +66,23 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
                 { x: -5 },
                 { x: 0 },
                 "<-0.5"
+            )
+            .fromTo(
+                categoriesContainerRef.current?.children[0],
+                {
+                    y: 10,
+                    opacity: 0,
+                },
+                { y: 0, opacity: 0.8 }
+            )
+            .fromTo(
+                categoriesContainerRef.current?.children[1],
+                {
+                    y: -10,
+                    opacity: 0,
+                },
+                { y: 0, opacity: 0.8 },
+                "<"
             );
 
         const hoverAni = gsap.timeline({ paused: true });
@@ -96,11 +123,11 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
         }
 
         return () => {
-            cardRef.current.removeEventListener(
+            cardRef.current?.removeEventListener(
                 "mouseover",
                 playHoverAnimation
             );
-            cardRef.current.removeEventListener(
+            cardRef.current?.removeEventListener(
                 "mouseleave",
                 reverseHoverAnimation
             );
@@ -131,6 +158,34 @@ const ProductCard = ({ id, name, img, price, cursorFill, cursorColor }) => {
             <div
                 ref={cardRef}
                 className="group relative isolate aspect-[1/1.3] w-[18rem]  cursor-pointer">
+                {/* categories container */}
+
+                {categories && (
+                    <div ref={categoriesContainerRef}>
+                        <ul className="absolute left-0 bottom-0 z-20 flex origin-bottom-left  -rotate-90 space-x-3   px-1 py-px text-xs  opacity-80">
+                            {getHalfArray(categories).firstHalf.map((item) => (
+                                <li className="flex gap-px" key={item}>
+                                    <span className="font-bold  opacity-70">
+                                        #
+                                    </span>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+
+                        <ul className="absolute right-0 top-0 z-20 flex origin-top-right -rotate-90 space-x-3  px-1 py-px text-xs  opacity-80">
+                            {getHalfArray(categories).secondHalf.map((item) => (
+                                <li className="flex gap-px" key={item}>
+                                    <span className="font-bold opacity-70">
+                                        #
+                                    </span>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
                 {/* img container */}
                 <div className="absolute h-full w-full overflow-hidden">
                     <img

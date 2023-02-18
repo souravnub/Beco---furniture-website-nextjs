@@ -13,6 +13,7 @@ const products = [
         name: "White Couches",
         price: "$25.3",
         img: "https://images.unsplash.com/photo-1506326426992-32b61983f2fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjN8fGZ1cm5pdHVyZSUyMHBsYWluJTIwYmFja2dvcnVuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
+        categories: ["chair", "couch", "plain", "white", "coral"],
         cursorFill: "yellow",
         cursorColor: "black",
     },
@@ -77,20 +78,9 @@ const SelectedProducts = () => {
 
             {/* products container */}
             <div className="flex flex-wrap justify-center gap-x-28 px-10 md:justify-start">
-                {products.map(
-                    ({ id, name, price, img, cursorFill, cursorColor }) => {
-                        return (
-                            <ProductCard
-                                key={id}
-                                name={name}
-                                price={price}
-                                img={img}
-                                cursorFill={cursorFill}
-                                cursorColor={cursorColor}
-                            />
-                        );
-                    }
-                )}
+                {products.map(({ id, ...productProps }) => {
+                    return <ProductCard key={id} {...productProps} />;
+                })}
             </div>
 
             <div className="mt-16 flex justify-center rounded-full">
