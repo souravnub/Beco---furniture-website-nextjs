@@ -4,7 +4,7 @@ import Section from "../components/Section";
 import TextArea from "../components/TextArea";
 import { HiOutlineArrowUpRight } from "react-icons/hi2";
 import CursorHover from "../components/CursorHover";
-import getTailwind, { getTailwindColors } from "../utils/getTailwind";
+import { getTailwindColors } from "../utils/getTailwind";
 import Fieldset from "../components/Fieldset";
 import Link from "next/link";
 
@@ -26,8 +26,9 @@ const data = [
     },
     {
         id: "none",
-        title: "Not determined",
-        value: "not determined",
+        title: "Not applicable",
+        value: "NA",
+        DEFAULT: true,
     },
 ];
 
@@ -113,10 +114,7 @@ const Contact = () => {
                         title="Approx. Budget, USD"
                         radioGroup="budget"
                         data={data}
-                        onChange={(e) => {
-                            console.log(e.target.value);
-                            budgetValRef.current = e.target.value;
-                        }}
+                        getVal={(val) => (budgetValRef.current = val)}
                     />
 
                     <CursorHover

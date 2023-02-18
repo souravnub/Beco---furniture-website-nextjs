@@ -1,14 +1,35 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { getTailwindColors } from "../utils/getTailwind";
 
-const Fieldset = ({ title, radioGroup, data, onChange }) => {
+const Fieldset = ({ title, radioGroup, data, getVal }) => {
     const radioContainerRef = useRef();
     const currentEleHoverAni = useRef();
 
-    function handleRadioSelect() {
+    const [value, setValue] = useState(data.find((obj) => obj.DEFAULT).value);
+
+    useEffect(() => {
+        getVal(value);
+    }, [value]);
+
+    useEffect(() => {
         Array.from(radioContainerRef.current.children).forEach((labelEle) => {
-            if (labelEle.querySelector(":scope > input").checked) {
+            const input = labelEle.querySelector(":scope > input");
+            if (input.getAttribute("data-default") === "default") {
+                input.checked = true;
+                input.setAttribute("aria-checked", "true");
+            } else {
+                input.setAttribute("aria-checked", "false");
+            }
+        });
+        setRadioAnimations();
+    }, []);
+
+    function setRadioAnimations() {
+        Array.from(radioContainerRef.current.children).forEach((labelEle) => {
+            const radioInput = labelEle.querySelector(":scope > input");
+            if (radioInput.checked) {
+                radioInput.setAttribute("aria-checked", "true");
                 gsap.to(labelEle, {
                     backgroundColor: "white",
 
@@ -16,7 +37,7 @@ const Fieldset = ({ title, radioGroup, data, onChange }) => {
                     duration: 0.4,
                 });
             } else {
-                currentEleHoverAni.current?.revert();
+                radioInput.setAttribute("aria-checked", "false");
                 gsap.to(labelEle, {
                     backgroundColor: getTailwindColors.dark[100],
                     color: "white",
@@ -24,6 +45,10 @@ const Fieldset = ({ title, radioGroup, data, onChange }) => {
                 });
             }
         });
+    }
+
+    function handleRadioSelect() {
+        setRadioAnimations();
     }
 
     let hoverAni = (ele) => {
@@ -43,15 +68,20 @@ const Fieldset = ({ title, radioGroup, data, onChange }) => {
         }
     }
     function handleRadioMouseOut(e) {
-        currentEleHoverAni.current.reverse();
+        currentEleHoverAni.current?.reverse();
     }
 
     return (
-        <fieldset onChange={(e) => onChange(e)} className="mt-12">
+        <fieldset
+            onChange={(e) => {
+                setValue(e.target.value);
+            }}
+            value={value}
+            className="mt-12">
             <legend className="mb-4">{title}</legend>
 
             <div className="flex flex-wrap gap-3" ref={radioContainerRef}>
-                {data.map(({ title, id, value }) => {
+                {data.map(({ title, id, value, DEFAULT }) => {
                     return (
                         <label
                             key={id}
@@ -67,6 +97,7 @@ const Fieldset = ({ title, radioGroup, data, onChange }) => {
                                 value={value}
                                 className="appearance-none"
                                 onChange={handleRadioSelect}
+                                data-default={DEFAULT && "default"}
                             />
                         </label>
                     );
