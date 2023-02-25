@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useNav } from "../contexts/navContext";
 import gsap from "gsap";
-import resolveConfig from "tailwindcss/resolveConfig";
-import { HiOutlineAtSymbol } from "react-icons/hi";
-import myConfig from "../tailwind.config";
+import { HiOutlineAtSymbol, HiOutlineArrowRight } from "react-icons/hi";
+import { IoCartOutline } from "react-icons/io5";
 import MobileMenu from "./MobileMenu";
-import { HiOutlineArrowRight } from "react-icons/hi";
 import CursorHover from "./CursorHover";
 import { useCursor } from "../contexts/cursorContext";
 import getTailwind, { getTailwindColors } from "../utils/getTailwind";
+import { useCart } from "../contexts/cartContext";
 
 const navLinks = [
     {
@@ -17,8 +16,8 @@ const navLinks = [
         href: "/about",
     },
     {
-        text: "Services",
-        href: "/services",
+        text: "Products",
+        href: "/products",
     },
 ];
 
@@ -34,11 +33,14 @@ const Nav = () => {
         setInitialNavHeight,
         navCursorBorderColor,
     } = useNav();
-    const { setCursorStates } = useCursor();
+    const { setCursorStates, borderColor: currentCursorBorderColor } =
+        useCursor();
+    const { setIsCartOpen, isCartOpen } = useCart();
     const navRef = useRef();
     const navPaddingAni = useRef();
     const menuBtnRef = useRef();
     const navAniRef = useRef();
+    const cartBtnRef = useRef();
 
     const [isMenuBtnDisabled, setIsMenuBtnDisabled] = useState(false);
 
@@ -98,11 +100,11 @@ const Nav = () => {
         navRef.current.addEventListener("mouseleave", setCursorBorderToDefault);
 
         return () => {
-            navRef.current.removeEventListener(
+            navRef.current?.removeEventListener(
                 "mouseenter",
                 setCursorBorderOnHover
             );
-            navRef.current.removeEventListener(
+            navRef.current?.removeEventListener(
                 "mouseleave",
                 setCursorBorderToDefault
             );
@@ -148,8 +150,21 @@ const Nav = () => {
         );
 
         return gsap
-            .timeline({ defaults: { duration: 0.35, ease: "power3.inOut" } })
+            .timeline({
+                defaults: {
+                    duration: 0.35,
+                    ease: "power3.inOut",
+                },
+            })
             .addLabel("parallel")
+            .to(
+                cartBtnRef.current.querySelector(":scope > span"),
+                {
+                    backgroundColor: "white",
+                    color: "black",
+                },
+                "parallel"
+            )
             .to(
                 menuBtnRef.current,
                 {
@@ -195,7 +210,7 @@ const Nav = () => {
         <nav>
             <div
                 ref={navRef}
-                className="nav-transparent fixed top-0 z-20 flex w-full items-center justify-between bg-texture p-6 text-sm font-semibold transition">
+                className=" nav-transparent fixed top-0 z-10 flex w-full items-center bg-texture p-6 text-sm font-semibold transition">
                 <CursorHover
                     hoverStates={{ scale: 4 }}
                     exitStates={{ scale: 1 }}>
@@ -205,56 +220,82 @@ const Nav = () => {
                     </Link>
                 </CursorHover>
 
-                <ul className="md:items-cneter hidden md:flex md:gap-10">
+                <ul className="hidden md:ml-auto md:flex md:items-center md:gap-10">
                     {navLinks.map(({ href, text }) => {
                         return (
-                            <CursorHover
-                                key={href}
-                                hoverStates={{ scale: 4 }}
-                                exitStates={{ scale: 1 }}>
-                                <Link
-                                    href={href}
-                                    className="transition hover:text-brand">
-                                    {text}
-                                </Link>
-                            </CursorHover>
+                            <li key={href}>
+                                <CursorHover
+                                    hoverStates={{ scale: 4 }}
+                                    exitStates={{ scale: 1 }}>
+                                    <Link
+                                        href={href}
+                                        className="transition hover:text-brand">
+                                        {text}
+                                    </Link>
+                                </CursorHover>
+                            </li>
                         );
                     })}
                 </ul>
 
-                <CursorHover
-                    hoverStates={{ scale: 4 }}
-                    exitStates={{ scale: 1 }}>
-                    <Link
-                        href="/contact"
-                        className="group hidden md:flex md:items-center md:gap-3">
-                        <div
-                            className={`menu-contact-btn ${menuBtnTheme} relative flex aspect-square w-4 items-center justify-center overflow-hidden rounded-full p-4`}
-                            aria-hidden="true">
-                            <HiOutlineArrowRight className="absolute -translate-x-full opacity-0 transition duration-700 group-hover:translate-x-0 group-hover:opacity-100" />
-                            <HiOutlineArrowRight className="absolute  opacity-100 transition duration-700 group-hover:translate-x-full group-hover:opacity-0" />
-                        </div>
-                        Get in touch
-                    </Link>
-                </CursorHover>
-
-                <button
-                    disabled={isMenuBtnDisabled}
-                    aria-controls="mobile-navigation"
-                    aria-disabled={isMenuBtnDisabled ? "true" : "false"}
-                    aria-expanded={isMobileMenuOpen ? "true" : "false"}
-                    onClick={() => {
-                        setIsMobileMenuOpen((prev) => !prev);
-                        handleNavAnimation();
-                    }}
-                    className={`${menuBtnTheme} menu-btn relative grid aspect-square w-10 place-items-center rounded-full md:hidden`}
-                    ref={menuBtnRef}>
-                    <span className="sr-only">
-                        {isMobileMenuOpen ? "hide menu" : "show menu"}
-                    </span>
-                    <div className="pointer-events-none absolute top-[45%] h-[1.5px] w-4 origin-center rounded-full"></div>
-                    <div className="pointer-events-none absolute top-[55%] h-[1.5px] w-4 origin-center rounded-full"></div>
-                </button>
+                <div className="ml-auto flex items-center gap-7 md:gap-10">
+                    <CursorHover
+                        className="mt-1 inline-block"
+                        hoverStates={{
+                            scale: 0.5,
+                            fill: currentCursorBorderColor,
+                        }}
+                        exitStates={{ scale: 1, fill: "transparent" }}>
+                        <button
+                            onClick={() => {
+                                setIsCartOpen(true);
+                            }}
+                            aria-controls="cart"
+                            aria-label="open-cart"
+                            ref={cartBtnRef}
+                            aria-expanded={isCartOpen ? "true" : "false"}
+                            className={`${menuBtnTheme} cart-btn relative  p-1 text-2xl`}>
+                            <span className="absolute right-1 top-1  aspect-square translate-x-1/2 -translate-y-1/2 rounded-full bg-white px-[.4rem] text-xs text-dark transition">
+                                2
+                            </span>
+                            <IoCartOutline />
+                        </button>
+                    </CursorHover>
+                    <CursorHover
+                        hoverStates={{ scale: 4 }}
+                        exitStates={{ scale: 1 }}
+                        className="hidden md:ml-auto md:inline-block">
+                        <Link
+                            href="/contact"
+                            className="group flex items-center gap-2">
+                            <div
+                                className={`menu-contact-btn ${menuBtnTheme} relative flex aspect-square w-4 items-center justify-center overflow-hidden rounded-full p-4`}
+                                aria-hidden="true">
+                                <HiOutlineArrowRight className="absolute -translate-x-full opacity-0 transition duration-700 group-hover:translate-x-0 group-hover:opacity-100" />
+                                <HiOutlineArrowRight className="absolute  opacity-100 transition duration-700 group-hover:translate-x-full group-hover:opacity-0" />
+                            </div>
+                            Get in touch
+                        </Link>
+                    </CursorHover>
+                    <button
+                        disabled={isMenuBtnDisabled}
+                        aria-controls="mobile-navigation"
+                        aria-label="open-menu"
+                        aria-disabled={isMenuBtnDisabled ? "true" : "false"}
+                        aria-expanded={isMobileMenuOpen ? "true" : "false"}
+                        onClick={() => {
+                            setIsMobileMenuOpen((prev) => !prev);
+                            handleNavAnimation();
+                        }}
+                        className={`${menuBtnTheme} menu-btn relative grid aspect-square h-8  place-items-center rounded-full md:hidden`}
+                        ref={menuBtnRef}>
+                        <span className="sr-only">
+                            {isMobileMenuOpen ? "hide menu" : "show menu"}
+                        </span>
+                        <div className="pointer-events-none absolute top-[45%] h-[1.5px] w-4 origin-center rounded-full"></div>
+                        <div className="pointer-events-none absolute top-[55%] h-[1.5px] w-4 origin-center rounded-full"></div>
+                    </button>
+                </div>
             </div>
             <MobileMenu
                 navRef={navRef}

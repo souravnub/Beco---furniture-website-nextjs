@@ -44,7 +44,6 @@ nav > div:nth-of-type(1) {
     color: var(--btn-bg-inverted);
     fill: var(--btn-bg-inverted);
 }
-
 /* Nav theme types */
 
 .nav-transparent {
@@ -83,4 +82,13 @@ nav > div:nth-of-type(1) {
 .menu-contact-btn.dark {
     --btn-bg: var(--bg-dark);
     --btn-bg-inverted: white;
+}
+
+.cart-btn.light > span {
+    background-color: white;
+    color: var(--bg-dark);
+}
+.cart-btn.dark > span {
+    background-color: var(--bg-dark);
+    color: white;
 }

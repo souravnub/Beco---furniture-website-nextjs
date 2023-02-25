@@ -21,6 +21,7 @@ module.exports = {
                 serif: "Cormorant, serif",
                 mayfest: "MAYFEST, serif",
                 bonelest: "BONELEST, serif",
+                montserrat: "Montserrat, sans-serif"
             },
             backgroundImage: {
                 texture: 'url("/bg-img.png")',
