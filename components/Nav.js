@@ -9,6 +9,7 @@ import CursorHover from "./CursorHover";
 import { useCursor } from "../contexts/cursorContext";
 import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 import { useCart } from "../contexts/cartContext";
+import { getCartLength } from "../utils/cartUtils";
 
 const navLinks = [
     {
@@ -35,7 +36,7 @@ const Nav = () => {
     } = useNav();
     const { setCursorStates, borderColor: currentCursorBorderColor } =
         useCursor();
-    const { setIsCartOpen, isCartOpen } = useCart();
+    const { setIsCartOpen, isCartOpen, cart } = useCart();
     const navRef = useRef();
     const navPaddingAni = useRef();
     const menuBtnRef = useRef();
@@ -256,7 +257,7 @@ const Nav = () => {
                             aria-expanded={isCartOpen ? "true" : "false"}
                             className={`${menuBtnTheme} cart-btn relative  p-1 text-2xl`}>
                             <span className="absolute right-1 top-1  aspect-square translate-x-1/2 -translate-y-1/2 rounded-full bg-white px-[.4rem] text-xs text-dark transition">
-                                2
+                                {getCartLength(cart)}
                             </span>
                             <IoCartOutline />
                         </button>

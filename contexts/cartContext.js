@@ -14,9 +14,13 @@ export function useCart() {
 }
 
 function useCartStates() {
+    const [cart, setCart] = useState([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
+
     return {
         isCartOpen,
         setIsCartOpen,
+        cart,
+        setCart,
     };
 }
