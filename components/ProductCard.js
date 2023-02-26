@@ -2,7 +2,7 @@ import gsap from "gsap";
 import React, { useEffect, useRef, useState } from "react";
 import CursorHover from "../components/CursorHover";
 import getHalfArray from "../utils/getHalfArray";
-import getTailwind, { getTailwindColors } from "../utils/getTailwind";
+import { getTailwindColors } from "../utils/getTailwind";
 
 const ProductCard = ({
     id,
@@ -66,24 +66,27 @@ const ProductCard = ({
                 { x: -5 },
                 { x: 0 },
                 "<-0.5"
-            )
-            .fromTo(
-                categoriesContainerRef.current?.children[0],
-                {
-                    y: 10,
-                    opacity: 0,
-                },
-                { y: 0, opacity: 0.8 }
-            )
-            .fromTo(
-                categoriesContainerRef.current?.children[1],
-                {
-                    y: -10,
-                    opacity: 0,
-                },
-                { y: 0, opacity: 0.8 },
-                "<"
             );
+        if (categoriesContainerRef.current) {
+            timeline
+                .fromTo(
+                    categoriesContainerRef.current?.children[0],
+                    {
+                        y: 10,
+                        opacity: 0,
+                    },
+                    { y: 0, opacity: 0.8 }
+                )
+                .fromTo(
+                    categoriesContainerRef.current?.children[1],
+                    {
+                        y: -10,
+                        opacity: 0,
+                    },
+                    { y: 0, opacity: 0.8 },
+                    "<"
+                );
+        }
 
         const hoverAni = gsap.timeline({ paused: true });
         hoverAni

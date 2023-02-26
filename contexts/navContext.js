@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useEffect } from "react";
+import { useState, createContext, useContext } from "react";
 import getTailwind, { getTailwindColors } from "../utils/getTailwind";
 
 const navContext = createContext();

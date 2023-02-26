@@ -3,7 +3,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import React, { useEffect, useRef } from "react";
 import { useCursor } from "../contexts/cursorContext";
 import { useNav } from "../contexts/navContext";
-import getTailwind, { getTailwindColors } from "../utils/getTailwind";
+import { getTailwindColors } from "../utils/getTailwind";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +14,6 @@ const Section = ({
     cursorExitStates,
     menuBtnTheme = "dark",
     onInView,
-    refreshScrollTrigger = [],
     ...props
 }) => {
     const sectionRef = useRef();
@@ -40,21 +39,17 @@ const Section = ({
         }
         return () => {
             if (cursorStates !== undefined || cursorExitStates !== undefined) {
-                sectionRef.current.removeEventListener(
+                sectionRef.current?.removeEventListener(
                     "mouseenter",
                     handleCursorOver
                 );
-                sectionRef.current.removeEventListener(
+                sectionRef.current?.removeEventListener(
                     "mouseleave",
                     handleCursorLeave
                 );
             }
         };
     }, []);
-
-    useEffect(() => {
-        scrollTriggerRef.current?.refresh();
-    }, [...refreshScrollTrigger]);
 
     useEffect(() => {
         if (navHeight !== undefined) {
